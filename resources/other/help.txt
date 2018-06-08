@@ -1,0 +1,51 @@
+-- *****************************************************************************
+-- *                                                                           *
+-- *                               AYUDA                                       *
+-- *                                                                           *
+-- *****************************************************************************
+  
+  La utilización de este programa consiste de cuatro pasos:
+  
+  *********** 
+  * PRIMERO *
+  ***********
+  
+  Seleccionar la CARPETA donde se encuentran los archivos de código fuente (es 
+  decir, los archivos con extensión ".java"). Si dentro de la carpeta elegida 
+  no se encuentra ningún archivo con extensión ".java", el programa lo indicará 
+  con un mensaje en pantalla.
+  
+  
+  *********** 
+  * SEGUNDO *
+  ***********
+  
+  Seleccionar de la lista desplegable el ARCHIVO DE CÓDIGO FUENTE sobre el 
+  cual se quiere realizar el análisis. Una vez seleccionado, aparecerán en la 
+  lista desplegable que se encuentra debajo, todas las clases declaradas en 
+  dicho código.
+  
+  
+  *********** 
+  * TERCERO *
+  ***********
+  
+  Seleccionar la CLASE sobre la cual se quiere implementar el análisis. Al 
+  seleccionarla, aparecerán los métodos correspondientes a la misma en la 
+  siguiente lista desplegable y además se podrá ver el código dentro del 
+  cuadro que se encuentra a la derecha.
+  
+  
+  ********** 
+  * CUARTO *
+  **********
+  
+  Seleccionar finalmente el MÉTODO. Debajo de esta lista desplegable, se 
+  mostrarán los resultados del análisis que se efectuará sobre el mismo.
+  El análisis se realizará apenas se haga click sobre el método. Se podrá
+  ver el código del mismo en el cuadro situado a la derecha.
+  
+  
+
+
+
