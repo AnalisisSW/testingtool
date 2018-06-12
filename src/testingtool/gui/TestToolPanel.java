@@ -1,5 +1,6 @@
 package testingtool.gui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -395,7 +396,7 @@ public class TestToolPanel extends JPanel {
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		fileChooser.setFileFilter(filter);	
-		fileChooser.setDialogTitle("Abrir...");		
+		fileChooser.setDialogTitle("Abrir Carpeta...");		
 		
 		btnFolderSelection.addActionListener(new ActionListener() {
 
@@ -546,44 +547,61 @@ public class TestToolPanel extends JPanel {
 			public void itemStateChanged(ItemEvent event) {
 				
 				// si se selecciona la primer opción, se borran todas las demas cosas				
-				if (event.getStateChange() == ItemEvent.SELECTED) {	
+				if (event.getStateChange() == ItemEvent.SELECTED && cbMethodSelection.getSelectedIndex() != 0) {	
+						
+					clearResults();
+				
+					String selectedMethodName = (String)cbMethodSelection.getSelectedItem();
 					
-					clearResults();		
+					DecimalFormat df = new DecimalFormat("0.00");
 					
-					if (cbMethodSelection.getSelectedIndex() != 0) {
+					taViewer.setText(codeAnalyzer.getMethodMap().get(selectedMethodName));
 					
-						String selectedMethodName = (String)cbMethodSelection.getSelectedItem();
-						
-						DecimalFormat df = new DecimalFormat("#.##");
-						
-						taViewer.setText(codeAnalyzer.getMethodMap().get(selectedMethodName));
-						
-						codeAnalyzer.analyzeMethod(selectedMethodName);
-						
-						lblCodeLines.setText(String.valueOf(codeAnalyzer.getCodeLines()));
-						
-						lblCommentLines.setText(String.valueOf(codeAnalyzer.getCommentLines()));
+					codeAnalyzer.analyzeMethod(selectedMethodName);
+					
+					lblCodeLines.setText(String.valueOf(codeAnalyzer.getCodeLines()));
+					
+					lblCommentLines.setText(String.valueOf(codeAnalyzer.getCommentLines()));
+										
+					double percentage = codeAnalyzer.getCommentPercentage();
+					Color percentageColor = getCommentPercentageColor((int)percentage);
+					lblCommentPercentage.setForeground(percentageColor);					
+					lblCommentPercentage.setText(df.format(percentage) + " %");
+					
+					lblCyclomaticComplexity.setText(String.valueOf(codeAnalyzer.getCyclomaticComplexity()));
+					
+					lblFanIn.setText(String.valueOf(codeAnalyzer.getFanIn()));
+					
+					lblFanOut.setText(String.valueOf(codeAnalyzer.getFanOut()));
+					
+					lblHalsteadLength.setText(String.valueOf(codeAnalyzer.getHalsteadLength()));
+					
+					lblHalsteadVolume.setText(df.format(codeAnalyzer.getHalsteadVolume()));
 											
-						lblCommentPercentage.setText(df.format(codeAnalyzer.getCommentPercentage()) + " %");
-						
-						lblCyclomaticComplexity.setText(String.valueOf(codeAnalyzer.getCyclomaticComplexity()));
-						
-						lblFanIn.setText(String.valueOf(codeAnalyzer.getFanIn()));
-						
-						lblFanOut.setText(String.valueOf(codeAnalyzer.getFanOut()));
-						
-						lblHalsteadLength.setText(String.valueOf(codeAnalyzer.getHalsteadLength()));
-						
-						lblHalsteadVolume.setText(df.format(codeAnalyzer.getHalsteadVolume()));
-											
-					}
-					
 				}
 				
 			}
 
 		});
 		
+	}
+	
+	private Color getCommentPercentageColor(int p) {
+		
+		if (p == 0) 
+			return Color.RED;
+		else if (p > 0 && p <= 5)
+			return new Color(234, 120, 7);
+		else if (p > 5 && p < 8)
+			return new Color(214, 189, 0);
+		else if (p >= 8 && p <= 12)
+			return new Color(103, 173, 19);
+		else if (p > 12 && p <= 15)
+			return new Color(214, 189, 0);
+		else if (p > 15 && p <= 20)
+			return new Color(234, 120, 7);
+		else return Color.RED;
+
 	}
 	
 	private void clearResults() {

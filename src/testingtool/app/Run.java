@@ -1,5 +1,7 @@
 package testingtool.app;
 
+import javax.swing.SwingUtilities;
+
 import testingtool.gui.TestToolFrame;
 
 public class Run {
@@ -30,7 +32,7 @@ public class Run {
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 				
-        java.awt.EventQueue.invokeLater(new Runnable() {
+		SwingUtilities.invokeLater(new Runnable() {
             public void run() {
             	frame.setVisible(true);
             }
