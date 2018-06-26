@@ -568,11 +568,20 @@ public class TestToolPanel extends JPanel {
 					lblCommentPercentage.setForeground(percentageColor);					
 					lblCommentPercentage.setText(df.format(percentage) + " %");
 					
-					lblCyclomaticComplexity.setText(String.valueOf(codeAnalyzer.getCyclomaticComplexity()));
+					int cyclomaticComplexity = codeAnalyzer.getCyclomaticComplexity();
+					Color cyclomaticComplexityColor = getCyclomaticComplexityColor(cyclomaticComplexity);
+					lblCyclomaticComplexity.setForeground(cyclomaticComplexityColor);
+					lblCyclomaticComplexity.setText(String.valueOf(cyclomaticComplexity));
 					
-					lblFanIn.setText(String.valueOf(codeAnalyzer.getFanIn()));
+					int fanIn = codeAnalyzer.getFanIn();
+					Color fanInColor = getFanInOutColor(fanIn);
+					lblFanIn.setForeground(fanInColor);
+					lblFanIn.setText(String.valueOf(fanIn));
 					
-					lblFanOut.setText(String.valueOf(codeAnalyzer.getFanOut()));
+					int fanOut = codeAnalyzer.getFanOut();
+					Color fanOutColor = getFanInOutColor(fanOut);
+					lblFanOut.setForeground(fanOutColor);
+					lblFanOut.setText(String.valueOf(fanOut));
 					
 					lblHalsteadLength.setText(String.valueOf(codeAnalyzer.getHalsteadLength()));
 					
@@ -591,17 +600,42 @@ public class TestToolPanel extends JPanel {
 		if (p == 0) 
 			return Color.RED;
 		else if (p > 0 && p <= 5)
-			return new Color(234, 120, 7);
+			return new Color(234, 120, 7); // ORANGE
 		else if (p > 5 && p < 8)
-			return new Color(214, 189, 0);
+			return new Color(214, 189, 0); // YELLOW
 		else if (p >= 8 && p <= 12)
-			return new Color(103, 173, 19);
+			return new Color(103, 173, 19); // GREEN
 		else if (p > 12 && p <= 15)
-			return new Color(214, 189, 0);
+			return new Color(214, 189, 0); // YELLOW
 		else if (p > 15 && p <= 20)
-			return new Color(234, 120, 7);
+			return new Color(234, 120, 7); // ORANGE
 		else return Color.RED;
 
+	}
+	
+	private Color getCyclomaticComplexityColor(int c) {
+		
+		if (c <= 10)
+			return new Color(103, 173, 19); // GREEN
+		else if (c > 10 && c <= 20)
+			return new Color(214, 189, 0); // YELLOW
+		else if (c > 20 && c <= 30)
+			return new Color(234, 120, 7); // ORANGE
+		else
+			return Color.RED;
+		
+	}
+	
+	private Color getFanInOutColor(int f) {
+		
+		if (f <= 5)
+			return new Color(103, 173, 19); // GREEN
+		else if (f > 5 && f <= 10)
+			return new Color(214, 189, 0); // YELLOW
+		else if (f > 10 && f <= 15)
+			return new Color(234, 120, 7); // ORANGE
+		else
+			return Color.RED;
 	}
 	
 	private void clearResults() {

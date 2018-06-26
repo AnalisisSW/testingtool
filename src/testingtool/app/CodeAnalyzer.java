@@ -339,6 +339,10 @@ public class CodeAnalyzer  {
 		Pattern whilePattern = Pattern.compile("while\\s*\\(");
 		Matcher whileMatcher = null;
 		
+		// regex para matchear keyword CATCH
+		Pattern catchPattern = Pattern.compile("catch\\s*\\(");
+		Matcher catchMatcher = null;
+		
 		// regex para matchear los simbolos de OR y AND para contar condiciones
 		Pattern conditionPattern = Pattern.compile("[\\||\\&]{2}");
 		Matcher conditionMatcher = null;
@@ -374,7 +378,9 @@ public class CodeAnalyzer  {
 			
 			whileMatcher = whilePattern.matcher(line);
 			
-			if (commentsOn == false && (stillMoreConditions || ifMatcher.find() == true || whileMatcher.find() == true) ){
+			catchMatcher = catchPattern.matcher(line);
+			
+			if (commentsOn == false && (stillMoreConditions || ifMatcher.find() == true || whileMatcher.find() == true || catchMatcher.find() == true) ){
 				
 				// si no hay la misma cantidad de parentesis de apertura y de cierre, quiere decir que
 				// el IF esta repartido en varias lineas
